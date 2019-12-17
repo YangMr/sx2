@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script src="js/jquery.js"></script>
+<script>
+
+    import request from "./util/request"
+
+    //请求banner
+    request({url : "/banner", data : {name : "jack"}}).then(data=>{console.log(data)})
+
+    //请求list数据
+    request({url : "/list",data : {name : "jack1"}}).then(data=>{console.log(data)})
+
+</script>

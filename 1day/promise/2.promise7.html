@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="js/jquery.js"></script>
+<script>
+    function request(obj) {
+        const promise = new Promise((resolve,reject)=>{
+            $.ajax({
+                url : obj.url,
+                data : obj.data,
+                header : obj.header,
+                success : function (response) {
+                    resolve(response)
+                },
+                error : function (error) {
+                    reject(error)
+                }
+            })
+        })
+        return promise;
+    };
+
+    request({
+        url : "",
+        data : {},
+        header : {}
+    }).then(function (data) {
+        console.log(data)
+    })
+
+
+</script>

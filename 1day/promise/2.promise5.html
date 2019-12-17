@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="js/jquery.js"></script>
+<script>
+
+
+
+    var promise = new Promise((resolve,reject)=>{
+        console.log("pending");
+        resolve();
+    })
+
+
+    promise.then(function () {
+        console.log("resolve")
+    })
+
+    console.log("hi");
+</script>

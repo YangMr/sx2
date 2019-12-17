@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="js/jquery.js"></script>
+<script>
+
+    const p1 = new Promise((resolve,reject)=>{
+        $.ajax({
+            url : "https://resources.ninghao.net/wxapp-case/db.json",
+            success : function (response) {
+                resolve(response)
+            },
+            error : function (error) {
+                reject(error)
+            }
+        })
+    });
+
+    const p2 = new Promise((resolve,reject)=>{
+        $.ajax({
+            url : "https://elm.cangdu.org/v1/cities?type=hot",
+            success : function (response) {
+                resolve(response)
+            },
+            error : function (error) {
+                reject(error)
+            }
+        })
+    });
+
+   Promise.all([
+       p1,p2
+   ]).then(function (data) {
+       const [data1,data2] = data;
+
+        console.log(data2)
+   })
+
+</script>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="js/jquery.js"></script>
+<script>
+
+    function loadImageAsync(url) {
+        return new Promise(function(resolve, reject) {
+            var image = new Image();
+
+            image.onload = function() {
+                console.log("1")
+                resolve(image);
+            };
+
+            image.onerror = function() {
+                reject(new Error('Could not load image at ' + url));
+            };
+
+            image.src = url;
+        });
+    }
+
+    loadImageAsync("http://cdn.jsrun.top/avatar/default.png").then(function (data) {
+        console.log(data)
+
+        $("body").append(data)
+    })
+</script>

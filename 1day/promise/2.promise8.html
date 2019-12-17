@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="js/jquery.js"></script>
+<script>
+
+    const p1 = new Promise((resolve,reject)=>{
+        $.ajax({
+            url : "https://resources.ninghao.net/wxapp-case/db.json",
+            success : function (response) {
+                resolve(response)
+            },
+            error : function (error) {
+                reject(error)
+            }
+        })
+    });
+
+    const p2 = new Promise((resolve,reject)=>{
+        $.ajax({
+            url : "https://elm.cangdu.org/v1/cities?type=hot",
+            success : function (response) {
+                resolve(response)
+            },
+            error : function (error) {
+                reject(error)
+            }
+        })
+    });
+
+    p1.then(function (data) {
+        console.log(data)
+    }).catch(function (error) {
+        console.log(error);
+    })
+
+    p2.then(function (data) {
+        console.log(data)
+    }).catch(error=>{
+        console.log(error)
+    })
+
+
+</script>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="js/jquery.js"></script>
+<script>
+
+
+    Promise.all([
+        $.ajax({url : "https://elm.cangdu.org/v1/cities?type=hot"
+        })
+    ]).then(function (data) {
+        console.log(data[0])
+    })
+
+</script>
