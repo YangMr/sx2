@@ -30,7 +30,7 @@ axios.interceptors.request.use(function (config) {
 	const token = stroage.getLocalStroageData("token");
 	//如果token不为空,那么则将token通过headers发送给后台
 	if(token){
-		config.headers.Authorization = token;
+		config.headers.Authorization = "Bearer " +token;
 	}
     // 在发送请求之前做些什么
     return config;
