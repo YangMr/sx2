@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.2/lib/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.2/lib/vant.min.js"></script>
+    <style>
+        html,body{
+            width:100%;
+            height:100%;
+            background:#ccc;
+        }
+        #app{
+            max-width:640px;
+            min-width:320px;
+            margin:0 auto;
+            padding:10px;
+        }
+        .cell{
+            padding: 50px 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="list">
+            <van-list v-model="loading" :offset="num" :finished="finished" finished-text="没有更多了" @load="onLoad">
+                <van-cell class="cell" v-for="(item,index) in list" :key="index" :title="item.title"/>
+<!--                <slots :loading="text"></slots>-->
+            </van-list>
+
+        </div>
+    </div>
+</body>
+</html>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    // 在 #app 标签下渲染一个按钮组件
+    new Vue({
+        el: '#app',
+        data : {
+            text : "hello",
+            num : 0,
+            loading: false,
+            finished: false,
+            flag : true,
+            list : [],
+            newList : [],
+            page : 0,
+            limit :10
+        },
+        methods : {
+            onLoad(){
+                this.page += 1;
+                this.offset = this.limit * this.page;
+                this.getList();
+                console.log("1")
+            },
+
+            getList(){
+                vant.Toast.loading({
+                    message: '加载中...',
+                    forbidClick: true,
+                    loadingType: 'spinner'
+                });
+                axios.get("https://www.365msmk.com/api/app/courseBasis",{
+                    params : {
+                        page : this.page,
+                        limit : this.limit
+                    }
+                }).then(res=>{
+                    this.loading = false;
+                    console.log(res.data.data.list)
+                    if (res.data.data.list.length) {
+                        this.flag = false;
+                        this.newList = this.list.concat(res.data.data.list)
+                        this.list = this.newList;
+
+                    } else {
+                        this.finished = true;
+                    }
+                })
+            }
+        },
+        created(){
+            this.getList()
+        }
+    });
+
+
+</script>

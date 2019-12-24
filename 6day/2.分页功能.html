@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.2/lib/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.2/lib/vant.min.js"></script>
+    <style>
+        html,body{
+            width:100%;
+            height:100%;
+            background:#ccc;
+        }
+        #app{
+            max-width:640px;
+            min-width:320px;
+            margin:0 auto;
+            padding:10px;
+        }
+        .container{
+            margin-bottom: 20px;
+        }
+        .container ul li{
+            background: #fff;
+            padding: 30px 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <ul>
+                <li v-for="(item,index) in list">{{item.title}}</li>
+            </ul>
+        </div>
+        <div class="page">
+            <van-pagination @change="changePage" v-model="page" :total-items="total" :items-per-page="limit"/>
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+
+    new Vue({
+        el : "#app",
+        data : {
+            list : [],
+            page : 1,
+            limit : 5,
+            total : 0
+        },
+        methods : {
+            changePage(){
+              this.page = this.page;
+              this.getList();
+            },
+            getList(){
+                axios.get("https://www.365msmk.com/api/app/courseBasis",{
+                    params : {
+                        page : this.page,
+                        limit : this.limit
+                    }
+                }).then(res=>{
+                    console.log(res)
+                    this.list = res.data.data.list;
+                    this.total = res.data.data.total;
+                })
+            }
+        },
+        created(){
+            this.getList();
+        }
+    })
+
+</script>
